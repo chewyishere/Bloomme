@@ -1,16 +1,34 @@
 <template>
   <div id="app">
-    <three-world></three-world>
+    <home :content="content"></home>
   </div>
 </template>
 
 <script>
-import ThreeWorld from './components/ThreeWorld.vue'
+
+//components 
+import Home from './components/Home.vue'
+import Result from './components/Result.vue'
 
 export default {
   name: 'app',
+  data () {
+    return{
+      content: {}
+    }
+  },
   components: {
-   ThreeWorld
+   Home,
+   Result
+  },
+  created() {
+    var vm = this
+    this.$http
+      .get('./content/content.json')
+      .then(function(response) {
+        vm.content = response.data.data
+        console.log(vm);
+      })
   }
 }
 </script>
