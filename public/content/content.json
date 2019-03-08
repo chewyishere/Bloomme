@@ -1,6 +1,24 @@
-{ 
-    "data":{
-        "title":"bloomme", 
-        "subtitle":"welcome to bloomme!"
-    }
+{
+  "home": {
+    "title": "Bloomme",
+    "subtitle": "Welcome to bloomme!",
+    "description": "A personal and magic space to grow your beautiful garden with your daily achievements",
+    "btnStart": "Lets begin!"
+  },
+  "name": {
+    "title": "First of all, please remind me of your name again?"
+  },
+  "photo": {
+    "title": "Let's take a photo real quick, smile!",
+    "btnPhoto": "I'm ready!"
+  },
+  "questions": {
+    "title": "Now, lets begin our daily check",
+    "checklists": [
+      { "q": "Q1 ?" },
+      { "q": "Q2 ?" },
+      { "q": "Q3 ?" },
+      { "q": "Q4 ?" }
+    ]
+  }
 }

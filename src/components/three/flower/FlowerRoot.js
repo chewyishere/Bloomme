@@ -1,7 +1,7 @@
 /* eslint-disable */
 import * as THREE from 'three';
 import MeshLine from 'three.meshline';
-import Leaf from './flower/Leaf'
+import Leaf from '@/components/three/flower/Leaf'
 
 export default class FlowerRoot {
     constructor(scene) {

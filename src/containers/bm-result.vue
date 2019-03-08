@@ -1,5 +1,5 @@
 <template>
-  <div id="resultPage">
+  <div class="bm-page" id="bm-Result">
     <dat-gui :setup="uiSetup" :model="ui"></dat-gui>
     <three-flower
     :f1_scale="ui.flower_Layer1.size" 
@@ -20,12 +20,12 @@
 </template>
 
 <script>
-import ThreeFlower from './ThreeFlower.vue'
-import * as gui from './three/gui/gui'
-import DatGui from './three/gui/DatGui.vue'
+import ThreeFlower from '@/components/ThreeFlower.vue'
+import * as gui from '@/components/three/gui/gui'
+import DatGui from '@/components/DatGui.vue'
 
 export default {
-  name: 'app',
+  name: 'bm-Result',
   data () {
     let uiSetup = gui.setupPanel
     let ui = gui.getModel()
@@ -43,12 +43,6 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 30px;
-}
+
+
 </style>

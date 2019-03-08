@@ -8,11 +8,10 @@
 
 /* eslint-disable */
 import * as Three from 'three'
-import OrbitControls from '../utils/OrbitControls';
-import OBJLoader from '../utils/OBJLoader';
-import FlowerHead from './three/FlowerHead'
-import FlowerRoot from './three/FlowerRoot'
-import Vase from './three/flower/Vase'
+import OrbitControls from '@/utils/OrbitControls';
+import FlowerHead from '@/components/three/flower/FlowerHead'
+import FlowerRoot from '@/components/three/flower/FlowerRoot'
+import Vase from '@/components/three/flower/Vase'
 
 export default {
   name: 'ThreeFlower',
