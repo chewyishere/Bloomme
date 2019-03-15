@@ -1,7 +1,6 @@
 {
   "home": {
-    "title": "Bloomme",
-    "subtitle": "Welcome to bloomme!",
+    "title": "Welcome to bloomme!",
     "description": "A personal and magic space to grow your beautiful garden with your daily achievements",
     "btnStart": "Lets begin!"
   },
@@ -9,16 +8,90 @@
     "title": "First of all, please remind me of your name again?"
   },
   "photo": {
-    "title": "Let's take a photo real quick, smile!",
+    "title": "Let's take a photo real quick, place your face in the center and smile!",
     "btnPhoto": "I'm ready!"
   },
   "questions": {
-    "title": "Now, lets begin our daily check",
+    "title": "Now, lets begin our check based on your last week's list",
+    "tokens": [
+      "Social",
+      "Intellectual",
+      "Emotional",
+      "Financial",
+      "Physical",
+      "Occupational"
+    ],
     "checklists": [
-      { "q": "Q1 ?" },
-      { "q": "Q2 ?" },
-      { "q": "Q3 ?" },
-      { "q": "Q4 ?" }
+      {
+        "q": "Go to a social dance party",
+        "tokens": {
+          "Social": 1,
+          "Intellectual": 0,
+          "Emotional": 1,
+          "Financial": 0,
+          "Physical": 2,
+          "Occupational": 0
+        }
+      },
+      {
+        "q": "Make some breakthrough at work",
+        "tokens": {
+          "Social": 0,
+          "Intellectual": 1,
+          "Emotional": 0,
+          "Financial": 1,
+          "Physical": 0,
+          "Occupational": 2
+        }
+      },
+      {
+        "q": "Learn one new skill",
+        "tokens": {
+          "Social": 0,
+          "Intellectual": 2,
+          "Emotional": 1,
+          "Financial": 0,
+          "Physical": 0,
+          "Occupational": 1
+        }
+      },
+      {
+        "q": "Check out one cool event with friends",
+        "tokens": {
+          "Social": 2,
+          "Intellectual": 0,
+          "Emotional": 0,
+          "Financial": 0,
+          "Physical": 1,
+          "Occupational": 0
+        }
+      },
+      {
+        "q": "Finish one freelance project",
+        "tokens": {
+          "Social": 0,
+          "Intellectual": 1,
+          "Emotional": 0,
+          "Financial": 2,
+          "Physical": 0,
+          "Occupational": 1
+        }
+      },
+      {
+        "q": "Go hike with your lover",
+        "tokens": {
+          "Social": 1,
+          "Intellectual": 0,
+          "Emotional": 2,
+          "Financial": 0,
+          "Physical": 1,
+          "Occupational": 0
+        }
+      }
     ]
+  },
+  "result": {
+    "title": "Nice bloom!",
+    "subtitle": "A nice quote that I haven't found yet -- Chewy"
   }
 }

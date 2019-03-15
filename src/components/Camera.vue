@@ -1,30 +1,33 @@
 <template>
   <div class="webCam">
-    <video @canplay="canPlayListener" ref="video"></video>
-    <img ref="photo">
-    <div ref="control" class="bm-photo--controls">
-      <button @click="takePhoto()" ref="startbutton">take a photo</button>
-      <button @click="clearPhoto()" ref="clearbutton">cancel</button>
+    <video id="bm-photo--video" @canplay="canPlayListener" ref="video"></video>
+    <div ref="control" id="bm-photo--controls">
+      <md-button v-show="!photoTaken" @click="takePhoto()" ref="startbutton">take a photo</md-button>
+      <md-button v-show="photoTaken" @click="confirmPhoto()" ref="nicebutton">nice!</md-button>
+      <md-button v-show="photoTaken" @click="clearPhoto()" ref="clearbutton">cancel</md-button>
     </div>
     <canvas ref="canvas"></canvas>
   </div>
 </template>
 
 <script>
+import { bus } from "../main.js";
+
 export default {
   name: "Camera",
   data() {
     return {
       width: 400,
-      height: 300,
+      height: 0,
       streaming: false,
       video: null,
       canvas: null,
-      photo: null,
       control: null,
       errorMsg: null,
+      startbutton: null,
       photoTaken: false,
-      startbutton: null
+      snap: null,
+      track: null
     };
   },
 
@@ -32,7 +35,6 @@ export default {
 
   mounted() {
     this.video = this.$refs.video;
-    this.photo = this.$refs.photo;
     this.control = this.$refs.control;
     this.canvas = this.$refs.canvas;
     this.setupMeida();
@@ -68,6 +70,7 @@ export default {
             vm.video.onplay = function() {
               vm.showVideo = true;
             };
+            vm.track = stream.getVideoTracks()[0];
           },
           // Error Callback
           function(err) {
@@ -101,7 +104,6 @@ export default {
     },
 
     takeSnapShot() {
-      console.log(this);
       var context = this.canvas.getContext("2d");
       this.canvas.width = this.width;
       this.canvas.height = this.height;
@@ -111,20 +113,7 @@ export default {
     },
 
     takePhoto() {
-      var snap = this.takeSnapShot();
-
-      // Show image.
-      this.photo.setAttribute("src", snap);
-      this.photo.classList.add("visible");
-
-      // Enable delete and save buttons
-      // delete_photo_btn.classList.remove("disabled");
-      // download_photo_btn.classList.remove("disabled");
-
-      // Set the href attribute of the download button to the snap url.
-      //download_photo_btn.href = snap;
-
-      // Pause video playback of stream.
+      this.snap = this.takeSnapShot();
       this.video.pause();
       this.photoTaken = true;
     },
@@ -135,9 +124,13 @@ export default {
       context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
       var data = this.$refs.canvas.toDataURL("image/png");
-      this.photo.setAttribute("src", data);
-      this.photoTaken = false;
       this.video.play();
+      this.photoTaken = false;
+    },
+
+    confirmPhoto() {
+      bus.$emit("confirmPhoto", this.snap);
+      this.track.stop();
     },
 
     displayErrorMessage(error_msg, error) {
@@ -145,21 +138,21 @@ export default {
       if (error) {
         console.log(error);
       }
-
-      //   this.errorMsg.innerText = error_msg;
-      //   //hideUI();
-      //   this.errorMsg.classList.add("visible");
     }
   }
 };
 </script>
 
 
-<style>
-video {
-  display: block;
+<style scoped>
+.webcam {
   width: 100%;
-  background: aliceblue;
+  height: 80%;
+}
+#bm-photo--video {
+  width: 100%;
+  height: 80%;
+  background: black;
 }
 
 img {
@@ -175,9 +168,8 @@ canvas {
   display: none;
 }
 
-.bm-photo--controls {
+#bm-photo--controls {
   position: absolute;
-  top: 0;
   left: 0;
   width: 100%;
   height: 100%;

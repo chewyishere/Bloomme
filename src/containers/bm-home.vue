@@ -1,14 +1,12 @@
 <template>
   <div class="bm-page" id="bm-home">
-    <p class="md-headline">{{title}}</p>
-    <p class="md-subheading">{{subtitle}}</p>
-    <!-- <Button @click="switchComponent()">{{home.btnStart}}</Button> -->
-    <button @click="switchComponent()">{{btnStart}}</button>
+    <p class="md-display-2">{{title}}</p>
+    <p class="md-display-1">{{description}}</p>
+    <md-button class="md-raised" @click="switchComponent()">{{btnStart}}</md-button>
   </div>
 </template>
 
 <script>
-import Button from "@/components/buttons/Button";
 import { bus } from "../main.js";
 
 export default {
@@ -17,34 +15,21 @@ export default {
   data() {
     return {
       step: 1
-      // title: null,
-      // subtitle: null,
-      // btnStart: null
     };
-  },
-  components: {
-    Button
   },
 
   methods: {
     switchComponent() {
-      console.log("click btn");
       bus.$emit("switchComp", this.step);
     }
   },
-
   created() {
-    console.log(this.contents);
     this.title = this.contents.home.title;
-    this.subtitle = this.contents.home.subtitle;
+    this.description = this.contents.home.description;
     this.btnStart = this.contents.home.btnStart;
   }
 };
 </script>
 
 <style>
-/* #home{
-  width: 100%;
-  height: 100%;
-} */
 </style>

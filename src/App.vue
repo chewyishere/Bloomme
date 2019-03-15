@@ -1,13 +1,22 @@
 <template>
   <div id="app">
+    <bm-header :userName="userName"></bm-header>
+    <p v-if="(error !== '')">{{error}}</p>
     <transition name="slide-fade" mode="out-in">
-      <component v-if="doneLoading" :is="view" :contents="contents"></component>
+      <component
+        v-if="doneLoading"
+        :is="view"
+        :contents="contents"
+        :score="score"
+        :userName="userName"
+      ></component>
     </transition>
   </div>
 </template>
 
 <script>
-//components
+//components'
+import bmHeader from "@/components/bmHeader.vue";
 import bmHome from "@/containers/bm-home.vue";
 import bmName from "@/containers/bm-name.vue";
 import bmPhoto from "@/containers/bm-photo.vue";
@@ -23,7 +32,9 @@ export default {
       contents: {},
       view: bmHome,
       doneLoading: false,
-      currentView: 0
+      userName: null,
+      score: [],
+      error: ""
     };
   },
   components: {
@@ -31,7 +42,8 @@ export default {
     bmName,
     bmPhoto,
     bmQuestions,
-    bmResult
+    bmResult,
+    bmHeader
   },
   methods: {
     changeView: function(step) {
@@ -48,6 +60,9 @@ export default {
         case 3:
           this.view = "bm-questions";
           break;
+        case 4:
+          this.view = "bm-result";
+          break;
         default:
       }
     }
@@ -62,14 +77,21 @@ export default {
         vm.doneLoading = true;
       })
       .catch(function(error) {
-        console.log("Error! Could not reach the API. " + error);
+        vm.error = "Error! Could not reach the API. " + error;
       });
   },
 
   mounted() {
     bus.$on("switchComp", step => {
-      console.log("updated page to" + step);
       this.changeView(step);
+    });
+
+    bus.$on("setFinalScore", score => {
+      this.score = score;
+    });
+
+    bus.$on("setName", userName => {
+      this.userName = userName;
     });
   }
 };
@@ -81,21 +103,19 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin: 0 auto;
   width: 100%;
   height: 100%;
   position: absolute;
 }
+
 .bm-page {
-  width: 80%;
   display: block;
-  height: 80%;
+  width: 80%;
   position: relative;
   margin: 0 auto;
-  border: solid;
-  background: blueviolet;
   text-align: center;
+  height: 100%;
 }
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */

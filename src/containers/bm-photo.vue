@@ -1,12 +1,8 @@
 <template>
   <div class="bm-page" id="bm-photo">
+    <p class="md-headline">Hi {{userName}}!</p>
     <p class="md-headline">{{title}}</p>
-    <!-- <button @click="takePhoto()">{{btnPhoto}}</button> -->
-    <camera></camera>
-    <div v-if="photoTaken" class="bm-photo--completed">
-      <button class="bm-photo-btn" @click="switchComponent()">looking good!</button>
-      <button class="bm-photo-btn" @click="cancelPhoto()">redo</button>
-    </div>
+    <camera v-show="!photoConfirmed"></camera>
   </div>
 </template>
 
@@ -16,11 +12,12 @@ import Camera from "@/components/Camera";
 
 export default {
   name: "bm-photo",
-  props: ["contents"],
+  props: ["contents", "userName"],
   data() {
     return {
       step: 3,
-      photoTaken: false
+      photoConfirmed: false,
+      photo: null
     };
   },
   components: {
@@ -31,30 +28,20 @@ export default {
     this.btnPhoto = this.contents.photo.btnPhoto;
   },
 
+  mounted() {
+    bus.$on("confirmPhoto", snap => {
+      this.photoConfirmed = true;
+      this.switchComponent();
+    });
+  },
+
   methods: {
     switchComponent() {
       bus.$emit("switchComp", this.step);
-    },
-    takePhoto() {
-      console.log("take photo");
-      this.photoTaken = true;
-    },
-    cancelPhoto() {
-      console.log("cancel photo");
-      this.photoTaken = false;
     }
   }
 };
 </script>
 
 <style>
-#bm-photo {
-  background: aqua;
-}
-.bm-photo--completed {
-  width: 50%;
-  height: 50%;
-  position: relative;
-  margin: auto 0;
-}
 </style>

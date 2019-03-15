@@ -1,8 +1,11 @@
 <template>
   <div class="bm-page" id="bm-name">
     <p class="md-headline">{{title}}</p>
-    <input v-model="nameForm">
-    <button @click="switchComponent()">submit {{userName}}</button>
+    <md-field id="bm-name--input">
+      <label>Dream Chaser</label>
+      <md-input v-model="nameForm"></md-input>
+    </md-field>
+    <md-button class="md-raised" @click="switchComponent()">submit</md-button>
   </div>
 </template>
 
@@ -15,8 +18,7 @@ export default {
   data() {
     return {
       step: 2,
-      nameForm: "",
-      userName: null
+      nameForm: ""
     };
   },
 
@@ -31,17 +33,20 @@ export default {
   },
 
   watch: {
-    nameForm: function(v) {
-      this.userName = v;
+    nameForm: function(name) {
+      bus.$emit("setName", name);
     }
   }
 };
 </script>
 
-<style>
-#bm-name {
-  /* width: 90%;
-  height: 90%; */
-  background: aqua;
+<style lang="scss">
+#bm-name--input {
+  margin: 24px auto;
+  width: 30%;
+
+  input {
+    text-align: center;
+  }
 }
 </style>
