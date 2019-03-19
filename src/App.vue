@@ -16,7 +16,7 @@
 
 <script>
 //components'
-import bmHeader from "@/components/bmHeader.vue";
+import bmHeader from "@/components/header/bmHeader.vue";
 import bmHome from "@/containers/bm-home.vue";
 import bmName from "@/containers/bm-name.vue";
 import bmPhoto from "@/containers/bm-photo.vue";

@@ -1,17 +1,17 @@
 <template>
-  <div class="webCam">
-    <video id="bm-photo--video" @canplay="canPlayListener" ref="video"></video>
-    <div ref="control" id="bm-photo--controls">
-      <md-button v-show="!photoTaken" @click="takePhoto()" ref="startbutton">take a photo</md-button>
-      <md-button v-show="photoTaken" @click="confirmPhoto()" ref="nicebutton">nice!</md-button>
-      <md-button v-show="photoTaken" @click="clearPhoto()" ref="clearbutton">cancel</md-button>
+  <div class="bm-webcam">
+    <video @canplay="canPlayListener" ref="video"></video>
+    <div id="bm-photo--controls">
+      <md-button v-show="!photoTaken" @click="takePhoto()">take a photo</md-button>
+      <md-button v-show="photoTaken" @click="confirmPhoto()">nice!</md-button>
+      <md-button v-show="photoTaken" @click="clearPhoto()">cancel</md-button>
     </div>
     <canvas ref="canvas"></canvas>
   </div>
 </template>
 
 <script>
-import { bus } from "../main.js";
+import { bus } from "../../main.js";
 
 export default {
   name: "Camera",
@@ -22,20 +22,14 @@ export default {
       streaming: false,
       video: null,
       canvas: null,
-      control: null,
-      errorMsg: null,
-      startbutton: null,
       photoTaken: false,
       snap: null,
       track: null
     };
   },
 
-  created() {},
-
   mounted() {
     this.video = this.$refs.video;
-    this.control = this.$refs.control;
     this.canvas = this.$refs.canvas;
     this.setupMeida();
   },
@@ -123,7 +117,6 @@ export default {
       context.fillStyle = "#AAA";
       context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-      var data = this.$refs.canvas.toDataURL("image/png");
       this.video.play();
       this.photoTaken = false;
     },
@@ -145,14 +138,9 @@ export default {
 
 
 <style scoped>
-.webcam {
+.bm-webcam {
   width: 100%;
   height: 80%;
-}
-#bm-photo--video {
-  width: 100%;
-  height: 80%;
-  background: black;
 }
 
 img {

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import QuestCard from "@/components/question/QuestCard";
+import QuestCard from "@/components/questions/QuestCard";
 import interact from "interactjs";
 
 export default {

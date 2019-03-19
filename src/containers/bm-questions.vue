@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import QuestCardStack from "@/components/question/QuestCardStack";
+import QuestCardStack from "@/components/questions/QuestCardStack";
 import { bus } from "../main.js";
 
 export default {

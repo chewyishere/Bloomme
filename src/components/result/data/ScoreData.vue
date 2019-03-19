@@ -1,24 +1,30 @@
+
 <template>
   <div id="bm-result-score" class="md-title">WEEKLY SCORE:
-    <ul id="bm-result-list" class="md-list md-headline">
+    <ul id="bm-result-list" class="md-list md-body-2">
       <li class="md-list-item">{{tokens[0]}}: {{score[0]}}</li>
       <li class="md-list-item">{{tokens[1]}}: {{score[1]}}</li>
       <li class="md-list-item">{{tokens[2]}}: {{score[2]}}</li>
       <li class="md-list-item">{{tokens[3]}}: {{score[3]}}</li>
       <li class="md-list-item">{{tokens[4]}}: {{score[4]}}</li>
       <li class="md-list-item">{{tokens[5]}}: {{score[5]}}</li>
-      <li class="md-list-item">Layer: (total score > 10: layer + 1): wip</li>
+      <li class="md-list-item">Layer: work in progress</li>
     </ul>
-    <md-button class="md-raised" @mousedown="isShowingStatus = !isShowingStatus">show flower status</md-button>
-    <div v-show="isShowingStatus">
-      <ul class="md-list md-body-2" v-if="!calculating" v-for="(value, key) in flowerData">
-        <li class="md-list-item">{{key}}: {{value}}</li>
+    <md-button
+      id="bm-result-btn"
+      class="md-raised"
+      @mousedown="isShowingStatus = !isShowingStatus"
+    >flower status</md-button>
+    <div id="bm-result-flower" v-if="!calculating" v-show="isShowingStatus">
+      <ul class="md-list md-body-2">
+        <li class="md-list-item" v-for="(value, key) in flowerData" :key="key">{{key}}: {{value}}</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import * as THREE from "three";
 
 export default {
@@ -37,23 +43,37 @@ export default {
 
   mounted() {
     this.mapScoreToFlower(this.score);
-    this.setupVarations(this.score);
+    this.setupVarations();
   },
 
   methods: {
     mapScoreToFlower(score) {
       let max = 4;
-      this.flowerData.open = THREE.Math.mapLinear(score[5], 0, max, -1.5, -0.3);
+      this.flowerData.open = THREE.Math.mapLinear(
+        score[5],
+        0,
+        max,
+        -1.5,
+        -0.1
+      ).toFixed(2);
       this.flowerData.petalNum = Math.round(
         THREE.Math.mapLinear(score[1], 0, max, 3, 15)
       );
       this.flowerData.color = this.linearToColor(score[2], max);
-      this.flowerData.leafNum = THREE.Math.mapLinear(score[3], 0, max, 0, 12);
-      this.flowerData.animation = THREE.Math.mapLinear(score[4], 0, max, 0, 1);
+      this.flowerData.leafNum = Math.round(
+        THREE.Math.mapLinear(score[3], 0, max, 0, 12)
+      );
+      this.flowerData.animation = THREE.Math.mapLinear(
+        score[4],
+        0,
+        max,
+        0,
+        1
+      ).toFixed(2);
       this.flowerData.rootLength = THREE.Math.mapLinear(
         score[5],
         0,
-        6,
+        max,
         0.7,
         1.7
       );
@@ -61,7 +81,7 @@ export default {
       this.$emit("mapData", this.flowerData);
     },
 
-    setupVarations(score) {
+    setupVarations() {
       this.flowerData.bend = 0.08; //todo: randomizer
     },
     linearToColor(num, max) {
@@ -76,7 +96,6 @@ export default {
 #bm-result-score {
   z-index: 1;
   margin: 20px;
-  width: 300px;
   opacity: 1;
   color: black;
   position: absolute;
@@ -87,5 +106,18 @@ export default {
 #bm-result-list {
   margin-top: 0;
   margin-bottom: 20px;
+}
+
+#bm-result-btn {
+  position: absolute;
+  top: -20px;
+  left: 110%;
+}
+
+#bm-result-flower {
+  width: 100%;
+  position: absolute;
+  left: 120%;
+  top: 20px;
 }
 </style>

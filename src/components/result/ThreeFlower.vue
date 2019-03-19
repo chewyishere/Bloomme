@@ -8,9 +8,9 @@
 /* eslint-disable */
 import * as Three from "three";
 import OrbitControls from "@/utils/OrbitControls";
-import FlowerHead from "@/components/three/flower/FlowerHead";
-import FlowerRoot from "@/components/three/flower/FlowerRoot";
-import Vase from "@/components/three/flower/Vase";
+import FlowerHead from "@/components/result/three/flower/FlowerHead";
+import FlowerRoot from "@/components/result/three/flower/FlowerRoot";
+import Vase from "@/components/result/three/flower/Vase";
 
 export default {
   name: "ThreeFlower",
@@ -43,7 +43,6 @@ export default {
       camera: null,
       scene: null,
       renderer: null,
-      cube: null,
       flowerGroup: null,
       flowerHead: null,
       flowerHead2: null,

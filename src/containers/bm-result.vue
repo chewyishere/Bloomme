@@ -42,10 +42,10 @@
 </template>
 
 <script>
-import ThreeFlower from "@/components/ThreeFlower.vue";
-import * as gui from "@/components/three/gui/gui";
-import DatGui from "@/components/DatGui.vue";
-import ScoreData from "@/components/three/data/ScoreData.vue";
+import ThreeFlower from "@/components/result/ThreeFlower.vue";
+import * as gui from "@/components/result/three/gui/gui";
+import DatGui from "@/components/result/DatGui.vue";
+import ScoreData from "@/components/result/data/ScoreData.vue";
 
 export default {
   name: "bm-Result",

@@ -8,7 +8,7 @@
 
 <script>
 import { bus } from "../main.js";
-import Camera from "@/components/Camera";
+import Camera from "@/components/photo/Camera";
 
 export default {
   name: "bm-photo",
